@@ -1,0 +1,54 @@
+cff-version: 1.2.0
+message: "Please cite the archived preprint using its version-specific Zenodo DOI."
+type: article
+title: "Correlated translated probes and the bound Λ < 0.149396 for the de Bruijn–Newman constant"
+authors:
+  - family-names: Raymond
+    given-names: Dale James
+    orcid: "https://orcid.org/0009-0001-1682-8529"
+version: "1.0"
+doi: "10.5281/zenodo.22867547"
+url: "https://zenodo.org/records/22867547"
+keywords:
+  - de Bruijn–Newman constant
+  - Riemann xi function
+  - heat flow
+  - interval arithmetic
+  - zero dynamics
+  - logarithmic derivatives
+references:
+  - type: article
+    title: "Phase-correlated certificates and the bound Λ < 0.163297 for the de Bruijn–Newman constant"
+    authors:
+      - family-names: Raymond
+        given-names: Dale James
+    doi: "10.5281/zenodo.22626161"
+  - type: article
+    title: "A computer-assisted proof of the bound Lambda <= 0.1787854 for the de Bruijn-Newman constant"
+    authors:
+      - family-names: Gomila
+        given-names: Jude
+    year: 2026
+    url: "https://github.com/judegomila/dbn-lambda-01787854-candidate-audit/tree/a74738deb6d5e0f76887cb36901da08b68dca705"
+  - type: article
+    title: "A computer-assisted upper bound for the de Bruijn-Newman constant"
+    authors:
+      - family-names: Gordon
+        given-names: Stefan
+    year: 2026
+    url: "https://github.com/stefangordon/dbn-upper-bound/blob/64c47f2db67288beb62c24d7a0f7aedd645dc4b3/manuscript/main.md"
+  - type: article
+    title: "Effective approximation of heat flow evolution of the Riemann xi function, and a new upper bound for the de Bruijn-Newman constant"
+    authors:
+      - name: "D. H. J. Polymath"
+    year: 2019
+    doi: "10.1007/s40687-019-0193-1"
+  - type: article
+    title: "The Riemann hypothesis is true up to 3 times 10^12"
+    authors:
+      - family-names: Platt
+        given-names: "D. J."
+      - family-names: Trudgian
+        given-names: "T. S."
+    year: 2021
+    doi: "10.1112/blms.12460"

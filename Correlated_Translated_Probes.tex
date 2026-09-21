@@ -1,0 +1,785 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\DeclareUnicodeCharacter{220E}{\ensuremath{\square}}
+\usepackage{lmodern,amsmath,amssymb,amsthm,mathtools}
+\usepackage[margin=25mm,headheight=14pt]{geometry}
+\usepackage{microtype,longtable,booktabs,array,calc,graphicx,enumitem,fancyhdr,xurl}
+\usepackage[hidelinks]{hyperref}
+\DeclareMathOperator{\Log}{Log}
+\DeclareMathOperator{\supp}{supp}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\newcommand{\passthrough}[1]{#1}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\setcounter{secnumdepth}{2}
+\setlength{\parindent}{1.2em}
+\setlength{\parskip}{3pt plus 1pt}
+\setlength{\emergencystretch}{3em}
+\setlist{nosep,leftmargin=1.5em}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Correlated translated probes}
+\fancyhead[R]{\small D. J. Raymond}
+\fancyfoot[C]{\small\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\hypersetup{pdftitle={Correlated translated probes and the bound Lambda < 0.149396 for the de Bruijn-Newman constant},pdfauthor={Dale James Raymond},pdfsubject={Computer-assisted upper bound; version 1.0, pre-deposit editorial revision R2},pdfkeywords={de Bruijn-Newman constant, Riemann xi function, heat flow, logarithmic derivatives, interval arithmetic, zero dynamics}}
+\title{Correlated translated probes and the bound\\$\Lambda<0.149396$ for the de Bruijn--Newman constant}
+\author{Dale James Raymond\\[3pt]
+\small ORCID: \href{https://orcid.org/0009-0001-1682-8529}{0009-0001-1682-8529}\\
+\small \href{mailto:dale_raymond@icloud.com}{\texttt{dale\_raymond@icloud.com}}}
+\date{21 September 2026 --- Version 1.0}
+\begin{document}
+\maketitle
+\begin{abstract}
+A computer-assisted argument gives the upper bound
+$\Lambda\le0.149395073827688<0.149396$
+for the de Bruijn--Newman constant in the Polymath normalisation.
+The construction starts from the classical width-one zero strip at time zero.
+A finite-head localisation wall and uniform logarithmic-derivative estimates
+are coupled to a decreasing zero-height barrier.
+The main refinement retains nonnegative surplus terms in a one-point
+value--derivative inequality: their phases at two prescribed translations
+cannot simultaneously realise the separate worst cases.
+A second gain comes from the finite Euler logarithmic derivative.
+The proof accommodates unequal coefficients and denominators, source-frequency
+seams, physical cutoff changes and the complete approximation remainder.
+The source certificates cover 608 time cells, with six frequency ranges per
+cell including an infinite final range. The terminal comparison is enclosed
+by exact rational arithmetic. The deposited source and evidence allow the
+numerical inequalities to be regenerated. The analytic arguments, including
+the larger-height approximation, are provided in a companion text; they are
+not formalised by the numerical replay.
+\end{abstract}
+\noindent\textbf{2020 Mathematics Subject Classification.} Primary 11M26; secondary 65G30.\\
+\textbf{Keywords.} de Bruijn--Newman constant; Riemann xi function; heat flow;
+logarithmic derivatives; Poisson kernels; interval arithmetic.
+
+\section{Introduction}\label{sec:introduction}
+The de Bruijn--Newman constant $\Lambda$ is the threshold at which every zero
+of the heat-deformed Riemann xi function is real. In the normalisation used
+here, the Riemann hypothesis is equivalent to $\Lambda\le0$; the theorem
+of Rodgers and Tao gives $\Lambda\ge0$ \cite{polymath,rodgerstao}.
+The present paper concerns an explicit positive upper bound, not the
+zero endpoint.
+
+\paragraph{Previous and concurrent bounds.}
+Polymath proved $\Lambda\le0.22$ \cite{polymath}.
+Platt and Trudgian's finite verification of RH subsequently gave
+$\Lambda\le0.2$ \cite[Corollary 2]{pt}.
+Among the subsequent public preprints, Gomila announced
+$\Lambda\le893927/5000000=0.1787854$ in August 2026
+\cite{gomila}, and the author's earlier Zenodo paper reported
+$\Lambda<0.163297$ in September 2026 \cite{raymond}.
+Gordon's concurrent September 2026 manuscript reports
+$\Lambda\le B_G=0.157656619095490606768\ldots$ \cite{gordon}, where
+\[
+ B_G=\frac{3885632262767861213460393068710302759}
+ {24646172707879668706230182733520000000}.
+\]
+Gordon also starts from the classical strip at time zero, but uses different
+density and jet estimates and a partial Lean formalisation whose deduction
+retains explicit analytic hypotheses. The recent preprints are cited for
+context, not as proof dependencies. No theorem, estimate or numerical
+certificate from Gomila's or Gordon's work is used to obtain the bound below;
+the required new estimates and computations are supplied here. This statement
+concerns the mathematical dependency of the proof, not a historical priority
+claim. The comparison sources and their status were checked on
+21 September 2026; no exhaustive survey of priority is asserted.
+
+\begin{theorem}[Main result]\label{thm:main}
+For the de Bruijn--Newman constant in the normalisation of
+Section~\ref{the-source-model-and-its-existing-inequalities},
+\[
+\Lambda\le
+\frac{18674384228461}{125000000000000}
+=0.149395073827688<0.149396.
+\]
+\end{theorem}
+
+The earlier paper \cite{raymond} uses a fixed positive-time row and a
+final-time covering. Neither its narrow-strip theorem nor its atlas is
+assumed here. Instead, the argument combines a time-zero localisation wall,
+all-frequency one-point bounds, a translated-phase surplus, and a continuous
+zero-height comparison. The contribution is the quantitative two-probe
+improvement with its complete physical and arithmetic accounting, rather
+than a new proof of the classical heat-flow framework.
+
+\subsection{Dependencies and verification scope}
+The companion \emph{Analytic Foundations} is part of the mathematical
+submission. It reproduces the supporting source derivations at their exact
+scope. The following map distinguishes published inputs, new analytic
+arguments and finite numerical certificates.
+\begin{center}
+\small
+\begin{tabular}{@{}p{0.24\linewidth}p{0.43\linewidth}p{0.25\linewidth}@{}}
+\toprule
+Ingredient & Precise source & Role \\
+\midrule
+Initial strip; dynamics; collisions; confinement &
+\cite[Proposition 3.1; Theorems 3.2 and 1.5(i)]{polymath} & Published analytic inputs \\
+Finite RH through $3000175332800$ &
+\cite[Theorem 1]{pt}; Foundations A, Section 2 & Published computational theorem \\
+Localisation wall & Foundations A, Section 3; regenerated prefix inequalities & New finite certificate \\
+Larger-height approximation and derivative errors & Foundations A, Sections 4--5, derived from \cite[Section 6]{polymath} & Written extension and interval bounds \\
+One-point bounds and sharp geometry & Foundations A, Sections 6--12; Foundations B, Sections 1--5 & Supporting analytic and numerical results \\
+Correlated gain and final endpoint & Sections~\ref{exact-decomposition-of-the-one-point-cone-surplus}--\ref{coupling-the-average-to-the-global-zero-barrier} and \ref{final-publication-refinement-and-opportunity-audit}; deposited certificates & Present refinement \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The larger-height approximation is not an unqualified invocation of the
+height-restricted numerical statement of \cite[Theorem 1.3]{polymath}.
+Its derivation and complete remainders are in Foundations A, Sections 4--5.
+Both transcendental calculations use Arb/FLINT \cite{arb}; their different
+precision and construction choices do not make them independent libraries.
+An additional standard-library checker validates the rational comparison
+histories. Numerical regeneration checks the finite inequalities, whereas
+the analytic reductions require mathematical review. This preprint has not
+undergone external peer review or complete proof-assistant formalisation.
+
+\subsection{Organisation and reproducibility}
+Sections~\ref{the-source-model-and-its-existing-inequalities}--\ref{uniform-lower-coefficient-bounds-and-complete-spatial-coverage}
+construct the joint source estimate. Sections~\ref{variable-displacement-and-the-retained-kernel-laws}--\ref{coupling-the-average-to-the-global-zero-barrier}
+apply it to zero motion. Sections~\ref{computation-reproducibility-and-trust-boundary}--\ref{final-publication-refinement-and-opportunity-audit}
+state the implementation, limitations and exact terminal comparison.
+\texttt{Proof\_and\_Replay.zip} contains the tested sources, numerical runtime,
+certificates and default regeneration command. The separate Verification
+Guide distinguishes file-integrity checking from numerical regeneration
+and analytic review. The old atlas volumes are not required.
+
+\section{The source model and the one-point estimate}\label{the-source-model-and-its-existing-inequalities}
+
+Use the same normalisation
+\[
+H_t(z)=\int_0^\infty e^{tu^2}\Phi(u)\cos(zu)\,du,
+\qquad H_0(z)=\xi((1+iz)/2)/8.
+\]
+Here
+\[
+\Phi(u)=\sum_{n=1}^{\infty}
+(2\pi^2n^4e^{9u}-3\pi n^2e^{5u})e^{-\pi n^2e^{4u}},
+\qquad
+\xi(s)=\tfrac12s(s-1)\pi^{-s/2}\Gamma(s/2)\zeta(s).
+\]
+The normalisation, the identity $\partial_tH_t=-\partial_z^2H_t$,
+and the classical zero dynamics follow the conventions of
+\cite{polymath}. All zero counts include multiplicity. The detailed
+source maps, normaliser $B_t$, and branches of the logarithm are given in
+Analytic Foundations, Part A, Section 4.
+
+Write \(S(x,h,t)=-\Im(H'_t/H_t)(x+ih)\). The reference source has
+\(X=6000000185827\), \(N_0=690988\), \(L=\log(x/(4\pi))\), and
+\[
+ s_U^0=(1+h)/2+tL/4-i(x/2+\pi t/8),\qquad
+ s_V^0=(1-h)/2+tL/4+i(x/2+\pi t/8).
+\]
+Its leading gamma is \(\gamma_0=\gamma(x,t,0)e^{-hL/2}\).
+The finite Euler multiplier is
+\[
+ E_t(s)=\prod_{p\in\{2,3,5\}}(1-b_t(p)p^{-s}),
+ \qquad b_t(n)=e^{t\log^2n/4}.
+\]
+The finite Euler multiplier in this paper is distinct from the connected
+exponential normalisers used in the earlier fixed-time programme.
+
+Write
+\[
+P_N(s)=\sum_{n\le N}b_t(n)n^{-s},
+\qquad
+N=N(x,t)=\left\lfloor\sqrt{\frac{x}{4\pi}+\frac{t}{16}}\right\rfloor.
+\]
+All logarithms of positive real numbers are natural logarithms. At each
+actual source, the complete leading core uses this actual cutoff:
+
+\[
+ Q=E_t(s_U^0)\big(P_N(s_U^0)+\gamma_0P_N(s_V^0)\big)
+   =\sum_{j\ge0}a_jz_j,
+\]
+with \(a_0=1,z_0=1\), all \(a_j\ge0\), and \(|z_j|=1\).
+The product head through \(N_0\) is combined first; the full product tail,
+reflected branch and every later activated term remain explicit signed
+labels (their signs are absorbed in their phases). At fixed \(x,t,N\),
+\[
+ Q_h=-V/2,\qquad V=\sum_j\lambda_j a_jz_j,
+ \quad \lambda_0=0,\quad\lambda_j\ge0.
+\]
+For first-head index \(n\), \(\lambda_n=\log n\) and
+\[
+ z_n=\exp\big(i(x/2+\pi t/8)\log n\big).
+\]
+For reflected label \((d,n)\), \(\lambda=L-\log n+\log d\).
+
+The one-point calculation in Analytic Foundations, Part A, certifies, on each complete time--frequency rectangle,
+\[
+0\le A_-\le A:=\sum_{j>0}a_j\le A_+<4/5,
+\qquad B:=\sum_j\lambda_ja_j\le B_+,
+\]
+with a rational \(C\in(0,3.4)\) for which
+\[
+ (1+A_-)[C(1+A_-)-B_+]-D_+>0,
+\]
+where \(D_+\) bounds the complete negative-pair budget defined below. It also
+provides the Euler logarithmic-derivative cap \(E_\ell\), the complete value
+and height-derivative remainder caps \(R_0,R_1\), and a strict physical floor
+\(\ell\). These are reconstructed, not read solely from a PASS marker.
+
+The physical transfer in Analytic Foundations, Part A, Sections 5 and 9, yields
+\[
+ S>\ell+
+ \frac{C|Q|^2-\Re(V\overline Q)}{2|Q|^2}
+ +\left(E_\ell-\Re\frac{(E_t(s_U^0))_h}{E_t(s_U^0)}\right).
+ \tag{1}
+\]
+Here \(\ell\) is rounded down from
+\[
+ L_{\rm lower}/4-10^{-6}-E_\ell-C/2
+ -\frac{R_1+B_+R_0/[2(1-A_+)]}{1-A_+-R_0}.
+\]
+Equation (1) is the one-point argument with the discarded nonnegative terms
+retained. Both complete physical remainders are still charged. Their caps do
+not depend on the discarded phases. The leading replacement and its height
+derivative are justified before using (1); no unknown error is differentiated.
+
+\section{The nonnegative surplus in the one-point estimate}\label{exact-decomposition-of-the-one-point-cone-surplus}
+
+Set
+\[
+ w_{ij}=a_i a_j(\lambda_i+\lambda_j-2C),\qquad
+ D_C=2\sum_{i<j,\ w_{ij}<0}|w_{ij}|.
+\]
+\begin{lemma}[Surplus decomposition]\label{lem:surplus}
+With the notation above, the following identity holds. Each term in its
+last two sums is nonnegative.
+
+\[
+\begin{split}
+ H_C&:=C|Q|^2-\Re(V\overline Q)\\
+ &=(1+A)[C(1+A)-B]-D_C\\
+ &\quad+\sum_{w_{ij}\ge0}w_{ij}[1-\Re(z_i\overline z_j)]\\
+ &\quad+\sum_{w_{ij}<0}|w_{ij}|[1+\Re(z_i\overline z_j)].
+\end{split}\tag{2}
+\]
+\end{lemma}
+\begin{proof}
+Expand $|Q|^2$ and $\Re(V\overline Q)$, group the terms with indices $i<j$,
+and separate the signs of $w_{ij}$. For $w_{ij}<0$, subtracting
+$2|w_{ij}|$ gives the displayed form. Nonnegativity follows from
+$-1\le\Re(z_i\overline z_j)\le1$.
+\end{proof}
+The one-point argument proves the first
+line after subtraction of the \emph{complete} \(D_C\) is positive. It follows that
+any selected subset of the displayed surplus terms is a valid lower bound
+for \(H_C\).
+
+The implementation selects only constant--head pairs \((0,n)\),
+\(2\le n\le1024\). All other surplus terms are left at their proven lower
+bound zero. In particular, no omitted negative coefficient is discarded:
+its entire worst-case debit remains in the one-point cone certificate.
+
+The denominators at the two probes need not be equal. Pointwise,
+\[
+ \frac{H_C}{2|Q|^2}\ge
+ \frac{\text{selected nonnegative surplus}}{2(1+A_+)^2}.
+ \tag{3}
+\]
+The direction in (3) uses nonnegativity. Averaging the two quotients first and
+then replacing them by a quotient of averages would in general be false.
+
+\section{The translated-phase inequality}\label{why-two-translated-sources-cannot-both-saturate-these-terms}
+
+For any unit complex numbers \(z,u\),
+\[
+ \frac{\Re(zu)+\Re(z\overline u)}2=\Re z\,\Re u.
+\]
+\begin{lemma}[Paired-phase lower bound]\label{lem:paired}
+For $|z|=|u|=1$, $\epsilon\in\{-1,1\}$ and
+$c_+,c_-\ge c_0\ge0$, the following inequality holds.
+\[
+\frac{c_+[1-\epsilon\Re(zu)]
++c_-[1-\epsilon\Re(z\overline u)]}{2}
+\ge c_0(1-|\Re u|).
+\tag{4}
+\]
+\end{lemma}
+This proves a deterministic gain with arbitrary common centre phase. There
+is no probability, generic-phase or averaging-in-frequency assumption.
+
+At the actual two points \(x\pm a\), the first-head phases obey exactly
+\[
+ z_n^\pm=z_n^c e^{\pm ia\log n/2}.
+\tag{5}
+\]
+This is an identity for the specified leading source. It continues to hold
+when the physical truncations at the two points differ; every selected index
+is at most 1024, far below both truncations. The nonlinear source replacement
+errors have already been included separately at both physical points in (1).
+No shared phase is imposed on the gamma or high-tail labels.
+
+Let the two points lie in source frequency rectangles \(j,k\), with certified
+cone constants \(C_j,C_k\), amplitude caps \(A_j,A_k\), and strict physical
+floors \(\ell_j,\ell_k\). Let \(\underline a_{j,n}\) bound the first-head
+amplitude below on rectangle \(j\). Define
+\[
+ g_{jk,n}=\max\{0,\log n-2\max(C_j,C_k),
+                       2\min(C_j,C_k)-\log n\},
+\]
+\[
+ m_{jk,n}=g_{jk,n}\min\left\{
+ \frac{\underline a_{j,n}}{2(1+A_j)^2},
+ \frac{\underline a_{k,n}}{2(1+A_k)^2}\right\}.
+\tag{6}
+\]
+If \(\log n\) lies between the two thresholds, (6) is zero and no credit is
+taken. Otherwise both surplus terms in (2) have the same sign convention;
+(3)--(5) give the certified moment-cone contribution
+\[
+ \boxed{G^{\rm cone}_{jk}(a)
+ =\sum_{n=2}^{1024}m_{jk,n}
+     \left(1-\left|\cos\frac{a\log n}{2}\right|\right).}
+ \tag{7}
+\]
+This includes recoverable surplus from negative-budget pairs as well as
+positive pairs. It does not reduce the verified one-point budget \(D_+\).
+
+\section{A second gain from the finite Euler logarithmic derivative}\label{a-second-gain-from-the-finite-euler-logarithmic-derivative}
+
+Put
+\[
+ \rho_p=b_t(p)p^{-[(1+h)/2+tL/4]},\qquad
+ \vartheta_p=(x/2+\pi t/8)\log p.
+\]
+Since \(\rho_p<1\), absolutely convergent expansion gives
+\[
+ \Re\frac{E_h}{E}
+ =\frac12\sum_{p=2,3,5}\log p\sum_{r\ge1}
+        \rho_p^r\cos(r\vartheta_p).
+\]
+The complete phase-free cap minus this expression is the nonnegative series
+\[
+ \frac12\sum_p\log p\sum_{r\ge1}
+        \rho_p^r[1-\cos(r\vartheta_p)].
+\tag{8}
+\]
+The certified Euler cap is at least this full phase-free cap at every source.
+Applying (4), keeping only the first eight harmonics, gives
+\[
+ \boxed{G^{\rm Euler}_{jk}(a)=
+ \frac12\sum_{p=2,3,5}\log p\sum_{r=1}^8
+ \min(\underline\rho_{j,p}^r,\underline\rho_{k,p}^r)
+ \left(1-\left|\cos\frac{ra\log p}{2}\right|\right).}
+ \tag{9}
+\]
+All higher harmonics remain covered: their contributions to (8) are
+nonnegative. They are not bounded by an unjustified zero remainder.
+
+The cone and Euler gains may be added. They arise from two different explicit
+addends in (1); no common coefficient resource is allocated twice inside
+one identity. The underlying phases can be dependent--the sum of two valid
+lower bounds requires no independence.
+
+\begin{theorem}[Uniform two-probe improvement]\label{thm:joint}
+Assume the complete one-point bounds on source rectangles $j,k$ stated in
+Section~\ref{the-source-model-and-its-existing-inequalities}. With the
+lower coefficients in (6)--(9), the two specified translated sources satisfy
+
+\[
+\boxed{
+\frac{S(x+a,h,t)+S(x-a,h,t)}2
+>
+\frac{\ell_j+\ell_k}{2}
++G^{\rm cone}_{jk}(a)+G^{\rm Euler}_{jk}(a).
+}\tag{10}
+\]
+\end{theorem}
+\begin{proof}
+Apply Lemma~\ref{lem:paired} to the selected terms in
+Lemma~\ref{lem:surplus} after the pointwise denominator estimate (3).
+Apply the same inequality to each of the retained Euler harmonics in (8),
+and add the two lower bounds in (1). This gives (10).
+\end{proof}
+All physical approximation and derivative errors are unchanged from the
+complete one-point inputs. In particular, (10) does not assert that either
+individual probe satisfies the improved average floor.
+
+\section{Uniform lower coefficient bounds and complete spatial coverage}\label{uniform-lower-coefficient-bounds-and-complete-spatial-coverage}
+
+The raw Euler-product head coefficient is
+\[
+ c_n(t)=\sum_{d\mid(n,30)}\mu(d)
+        \left(\prod_{p\mid d}b_t(p)\right)b_t(n/d).
+\]
+For \(n\le N_0\) it is nonnegative and nondecreasing in \(t\ge0\).
+Indeed the finite heat graph expansion retains precisely graphs in which
+all marked selected-prime occurrences are nonisolated. Every retained
+weight and its heat factor is nonnegative and nondecreasing. Repeated prime
+occurrences are included. At the three selected primes the coefficient is
+identically zero.
+
+For a time cell \([t_L,t_R]\) and finite frequency rectangle with upper bound
+\(L_j^+\), valid lower bounds are
+\[
+ \underline a_{j,n}
+ =c_n(t_L)\exp\left[-\left(\frac{1+h}{2}
+                   +\frac{t_RL_j^+}{4}\right)\log n\right],
+\tag{11}
+\]
+\[
+ \underline\rho_{j,p}
+ =\exp\left[-\frac{1+h}{2}\log p
+        +\frac{t_R}{4}\log p(\log p-L_j^+)\right].
+\tag{12}
+\]
+Equation (11) does not assume monotonicity of the product of these factors;
+it bounds the increasing coefficient and decreasing exponential separately.
+For (12), \(L>\log p\), so the exact weight decreases in both \(t\) and \(L\).
+On the infinite last rectangle, use lower bound zero. Its full previously
+proved source floor, including every future state activation, is retained.
+
+The source frequency variable is \(s=L/2-\log N_0\), with endpoints
+\[
+0,\;1/20,\;3/20,\;2/5,\;1,\;2,\;\infty.
+\]
+Both translated arguments satisfy \(x\pm a\ge X-2\). The calculation checks
+\(X-4>4\pi N_0^2\), so they are in the declared source range. The complete
+distance between them is less than four, whereas every finite frequency
+interval has physical width larger than \(10^{11}\). Thus the possible
+ordered pairs are exactly covered by
+\[
+(j,j),\ 0\le j\le5,\qquad (j,j+1),\ 0\le j\le4.
+\tag{13}
+\]
+The lower bound used in zero motion is the minimum of (10) over all eleven
+possibilities. This includes points arbitrarily close to a frequency seam,
+not just centres away from seams. Physical truncation changes require no
+additional correlation assumption: the selected low labels occur on both
+sides, while all other terms and complete state-pair errors remain in the
+individual source certificates.
+
+\section{Variable displacement and the retained kernel laws}\label{variable-displacement-and-the-retained-kernel-laws}
+
+For each catalogue displacement \(a=rh\), the new gains are computed at that
+exact rational displacement. There are ten distinct ratios in the retained
+thirteen-kernel catalogue.
+
+For the sharp continuum law
+\[
+ a(y,h)=\sqrt{(h^2-y^2)/3},\qquad
+ v=y^2/h^2,\qquad 29v^2-v-1\le0,
+\]
+the new supplier uses one conservative displacement interval
+\[
+ h\sqrt{(1-51/250)/3}\le a\le h/\sqrt3.
+\tag{14}
+\]
+The exact positive root \(v_*\) is less than \(51/250\). Thus (14) contains
+every displacement at which the sharp kernel can be selected. Each factor
+\(1-|\cos(a\lambda/2)|\) is replaced by its interval lower bound on (14).
+The bound includes interior extrema of cosine; it is not interpolation
+between endpoint cosines. The new calculation is deliberately not optimised
+over a smaller attained displacement interval.
+
+All displacements are less than two, within the spatial padding in Analytic Foundations, Part A. They are
+held fixed when differentiating the probe in height. Their possible
+functional dependence on the hypothetical contact height creates no extra
+derivative term: the zero-motion comparison evaluates the kernel inequality
+instantaneously and does not differentiate a moving probe path.
+
+\section{Coupling the average to the global zero barrier}\label{coupling-the-average-to-the-global-zero-barrier}
+
+For a highest simple upper zero of height \(y\), write \(q=y^2\). The retained
+kernel comparison and the complete own-pair subtraction give
+\[
+ q'\le-2-\frac{2\lambda q}{h}
+       \left[\frac{S(x+a,h,t)+S(x-a,h,t)}2
+                         -S_{\rm self}(q)\right].
+\tag{15}
+\]
+Its exact self-pair contribution is
+\[
+ S_{\rm self}(q)=
+ \frac{2h(A+h^2-q)}{(A+h^2-q)^2+4Aq},\qquad A=a^2.
+\]
+For the sharp continuum kernel, \(\lambda=2\) and
+\[
+ S_{\rm self}(q)=\frac6{h(4-q/h^2)}.
+\]
+No self-pair credit is taken twice. A stronger bound for the average in
+(10) directly strengthens the coefficient in (15).
+
+On every comparison step, the exact consumer chooses only a kernel whose
+height-ratio restriction is satisfied by the upward enclosure of \(q\).
+The source floor is the matching \emph{joint} floor for that displacement, not
+an individually improved probe floor. The self-pair upper bound is checked
+on the entire permitted decreasing range of \(q\). Thus a constant rate
+\(c>0\) gives \(q'<-2-cq\) through the step.
+
+The source schedule has 608 cells of width \(1/4000\), with unchanged rational
+probe heights. The archived joint-probe baseline used four comparison steps
+per cell. The publication refinement uses 128 steps per cell, as proved and
+checked in Section~\ref{final-publication-refinement-and-opportunity-audit}. The initial bound is \(q_0=(1.000001)^2>1\); the final positive height
+is \(q_e=10^{-8}\), followed by de Bruijn contraction costing \(q_e/2\).
+Upward dyadic enclosures of each exponential solution are used. A distinct
+rational exponential/logarithm implementation supplies a second endpoint.
+
+The global first-contact argument is given in Analytic Foundations,
+Part A, Section 11, using the zero-dynamics and confinement results of
+\cite[Proposition 3.1 and Theorem 1.5(i)]{polymath}:
+the wall excludes nonreal zeros from the finite head, positive-time
+confinement makes first contact attainable, backward Hermite splitting
+excludes multiple contact, and the simple-zero inequality contradicts first
+contact. At a time knot, the left-hand row is used. The initial strict margin
+is checked numerically, so compactness is used only after positive time.
+The proof does not infer a smaller-time strip by reversing heat flow.
+
+\section{Numerical verification and reproducibility}\label{computation-reproducibility-and-trust-boundary}
+
+The new arithmetic lower bounds use two constructions of every raw head
+coefficient through 1024: complete Euler-divisor inclusion--exclusion, and
+descending multiplication by the three finite Euler factors. All subsequent
+transcendental values and cosine extrema are enclosed with Arb/FLINT\cite{arb} at
+192 and 256 bits. Coefficients, denominator reciprocals and attenuation
+factors are rounded down on the \(2^{-80}\) grid. Their sums are then
+calculated with exact Python integers. Zero may replace a negative lower
+endpoint only where the analytic positivity theorem has established it.
+
+The two lanes produce the same finite-grid hashes. Final acceptance retains
+the weaker of the two joint lower bounds. Both new lanes use the same
+source-row selection from independently validated one-point rows: the stronger
+valid complete enclosure can be selected at each matching rectangle. This
+is not a claim that the coarser one-point lane independently proves the final
+headline. Both full one-point lanes, their remainders and all domain conditions
+are regenerated and checked.
+
+All eleven spatial pair classes, all 608 time cells and all eleven translation
+modes are required. The last spatial interval is infinite and retains its
+full old floor even though its additional lower gains are zero. The exact
+checker reconstructs all scalar gain sums, matching domains and minima.
+With four steps per cell and the gains disabled, the archived baseline reproduces
+the exact preceding endpoint. Its separate cone-only and Euler-only comparisons
+measure the effects without pretending their endpoint improvements add linearly.
+The final release changes only the scalar subdivision, not these source gains.
+
+Supplementary direct paired checks include an ordinary source, a frequency
+seam and a physical truncation seam. They use the actual nonlinear source
+coordinates, full two-branch sums, actual cutoffs and complete derivative
+error. They are not acceptance premises for the uniform source theorem.
+
+The replay checks integrity and regenerated numerical inequalities. It does
+not formally verify the infinite analytic implications or reprove the
+published finite-RH computation. Neither of the new lanes is an independent
+transcendental library. Exact identities, interval rounding and the scalar
+ODE enclosure still depend on their stated arithmetic implementations.
+
+\section{Contribution and limitations}\label{what-is-new-and-what-is-not-claimed}
+
+The new source gain is not obtained from a favourable physical sample or a
+conjecture that two worst cases are unlikely. It follows from the exact
+relation between selected phases at two specified translations and from
+nonnegative surplus terms already present in the complete one-point proof.
+The physical denominators may differ. The gamma phase and high branch phases
+are not synchronised by assumption. All their previous errors remain.
+
+No product of two million-term polynomials is expanded. Conversely, this is
+not the optimal joint two-point estimate: only constant--head pairs through
+1024 and eight harmonics of each selected Euler factor are used. Correlation
+among other head labels, the reflected branch and the two denominators is
+not credited beyond the already proved one-point bounds. Enlarging the
+selected positive-surplus set can only help the analytic lower bound, but
+whether its certified numerical gain is worthwhile must be evaluated.
+
+The time--height schedule and kernel catalogue are not globally optimised.
+The result does not establish \(\Lambda<0.09\) or RH, and no exhaustive
+world-record or priority claim is made. It is a further checked corollary
+obtained from the analytic estimates and numerical certificates supplied here, with a uniform two-point improvement.
+
+\section{The exact terminal comparison}\label{final-publication-refinement-and-opportunity-audit}
+
+The only final mathematical change to the archived \(\Lambda<0.149399\)
+calculation is the number of comparison substeps. The schedule, all source
+floors, the selected head indices through 1024, the eight Euler harmonics,
+the kernel catalogue, the spatial padding, the self-pair subtraction and
+all physical-error contracts are unchanged.
+
+Every source lower bound is valid throughout its full time cell.
+At each new substep, let \(q\) be an upward enclosure of the ideal comparison
+height. Only a kernel valid on the entire interval from zero to that height
+is admissible. Its matching translated-source floor and complete self-pair
+cap give a rational \(c>0\) with \(q'<-2-cq\) throughout the substep.
+Refining the time partition therefore requires no new functional hypothesis.
+
+For a substep of width \(\Delta t\), the exact solution is
+\[
+q_{\mathrm{next}}=(q+2/c)e^{-c\Delta t}-2/c.
+\]
+One construction uses the even alternating Taylor upper bound through degree
+18 and 96-bit upward dyadic rounding. The second uses the reciprocal of the
+positive exponential Taylor sum through degree 12 and 112-bit upward rounding.
+Both enclose the same continuous comparison, not a discretely jumping zero
+trajectory.
+
+If the step reaches \(q_e=10^{-8}\), put
+\[
+z=\frac{c(q-q_e)}{2+cq_e}.
+\]
+The remaining time is \(\log(1+z)/c\). Each construction bounds this logarithm
+upward, checks that the terminal time remains inside the certified source cell,
+adds \(q_e/2\), and rounds the final time upward.
+
+The fixed-source audit was:
+
+\begin{longtable}[]{@{}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedleft
+Substeps per source cell
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Primary exact upper time, displayed
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Alternative exact upper time, displayed
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+4 & 0.149398159734722 & 0.149398159735734 \\
+8 & 0.149396459831885 & 0.149396459832690 \\
+16 & 0.149395675207179 & 0.149395675207190 \\
+32 & 0.149395321833941 & 0.149395321833950 \\
+64 & 0.149395152324926 & 0.149395152324926 \\
+128 & 0.149395073827688 & 0.149395073827688 \\
+\end{longtable}
+
+The final two constructions, at 128 substeps per source cell, both give
+\[
+\boxed{U=\frac{18674384228461}{125000000000000}
+=0.149395073827688.}
+\]
+Compared with the previous exact value \(0.149398159734722\), the decrease is
+exactly
+\[
+0.000003085907034.
+\]
+These are exact comparisons, not floating-point optimisation scores.
+
+A separate history checker reconstructs every rational rate and time join,
+verifies the full quadratic self-pair inequality on the permitted height
+interval, and checks each upward endpoint with an even degree-20 exponential
+bound. It independently validates terminal logarithms with the odd degree-13
+upper series. It rejects modified source floors, rates, time joins, endpoint
+ceilings and terminal lags.
+
+\subsection{Scope of the numerical refinement}\label{scope-of-the-opportunity-audit}
+
+This is a bounded refinement of the scalar consumer of already established
+functional estimates. It is not an exhaustive optimisation over probe heights,
+kernel families, selected surplus terms, or source schedules. Further such
+changes may improve the bound, but require their own complete verification.
+
+The release is frozen at the safe public ceiling \(\Lambda<0.149396\).
+No optimality or worldwide priority claim follows from this audit.
+The number of internal computational iterations is not the publication
+version: this separate paper's first prepared public release is version 1.0.
+
+\section{Data availability and author disclosure}\label{availability-and-assistance}
+
+The deposited materials comprise this manuscript, Analytic Foundations,
+the numerical programs and runtime, the complete interval enclosures,
+exact comparison histories, verification instructions and integrity manifests.
+The default regeneration command is given in the Verification Guide.
+It recomputes the numerical inequalities; an integrity-only command checks
+file identities and does not verify the mathematics. The scientific evidence
+archive is unchanged by this editorial revision.
+
+The numerical dependencies are identified by content hashes in the deposit.
+The one-point source and sharp-geometry proofs are reproduced in Analytic
+Foundations rather than treated as inaccessible external assumptions.
+The mathematical inputs from other authors are the published results cited
+in the dependency table in Section~\ref{sec:introduction}. Neither
+\cite{gomila} nor \cite{gordon} supplies a theorem, estimate or numerical
+certificate used to obtain the present bound.
+
+\paragraph{Author disclosure.}
+AI assistance was used in mathematical exploration, programming, numerical
+experimentation, checking and drafting. The author takes responsibility for
+the claims, their presentation and the deposit. Automated review and
+numerical replay are not external peer review. No complete proof-assistant
+formalisation is claimed. The earlier and concurrent work cited in the
+introduction was considered in preparing the comparison and exposition;
+independence of proof inputs is not a claim of historical priority or of
+absence of awareness of that work.
+
+\paragraph{Publication status.}
+This is a preprint prepared for independent mathematical and computational
+review. No journal acceptance or exhaustive record-ranking claim is made.
+The DOI assigned to this separate record should be used for this manuscript;
+the DOI of the earlier paper in \cite{raymond} is not its identifier.
+\begin{thebibliography}{9}
+\setlength{\itemsep}{5pt}
+\bibitem{polymath}
+D. H. J. Polymath,
+\emph{Effective approximation of heat flow evolution of the Riemann
+$\xi$ function, and a new upper bound for the de Bruijn--Newman constant},
+Research in the Mathematical Sciences \textbf{6} (2019), article 31.
+\href{https://doi.org/10.1007/s40687-019-0193-1}{doi:10.1007/s40687-019-0193-1}.
+Numbered references follow
+\href{https://arxiv.org/abs/1904.12438v2}{arXiv:1904.12438v2}.
+
+\bibitem{pt}
+D. J. Platt and T. S. Trudgian,
+\emph{The Riemann hypothesis is true up to $3\cdot10^{12}$},
+Bulletin of the London Mathematical Society \textbf{53} (2021), 792--797.
+\href{https://doi.org/10.1112/blms.12460}{doi:10.1112/blms.12460};
+\href{https://arxiv.org/abs/2004.09765v1}{arXiv:2004.09765v1}.
+Theorem 1 supplies finite RH; Corollary 2 gives $\Lambda\le0.2$.
+
+\bibitem{rodgerstao}
+B. Rodgers and T. Tao,
+\emph{The de Bruijn--Newman constant is non-negative},
+Forum of Mathematics, Pi \textbf{8} (2020), e6.
+\href{https://doi.org/10.1017/fmp.2020.6}{doi:10.1017/fmp.2020.6};
+\href{https://arxiv.org/abs/1801.05914}{arXiv:1801.05914}.
+
+\bibitem{gomila}
+J. Gomila,
+\emph{A computer-assisted proof of the bound
+$\Lambda\le893927/5000000=0.1787854$ for the de Bruijn--Newman constant},
+public repository manuscript, August 2026; not peer reviewed at the date
+consulted. Repository \texttt{judegomila/dbn-lambda-01787854-candidate-audit},
+revision \nolinkurl{a74738deb6d5e0f76887cb36901da08b68dca705},
+consulted 21 September 2026.
+\href{https://github.com/judegomila/dbn-lambda-01787854-candidate-audit/tree/a74738deb6d5e0f76887cb36901da08b68dca705}{Pinned repository};
+\href{https://www.judegomila.com/posts/riemann-lambda-0.1787854}{author's announcement, 19 August 2026}.
+Cited for context, not as a proof input.
+
+\bibitem{raymond}
+D. J. Raymond,
+\emph{Phase-correlated certificates and the bound $\Lambda<0.163297$
+for the de Bruijn--Newman constant}, Zenodo preprint, 8 September 2026.
+\href{https://doi.org/10.5281/zenodo.22626161}{doi:10.5281/zenodo.22626161}.
+Its fixed-time narrow strip and final-time atlas are not premises here.
+
+\bibitem{gordon}
+S. Gordon,
+\emph{A computer-assisted upper bound for the de Bruijn--Newman constant},
+public manuscript and repository, September 2026; not externally peer
+reviewed at the date consulted. Repository
+\texttt{stefangordon/dbn-upper-bound}, revision
+\nolinkurl{64c47f2db67288beb62c24d7a0f7aedd645dc4b3},
+consulted 21 September 2026.
+\href{https://github.com/stefangordon/dbn-upper-bound/blob/64c47f2db67288beb62c24d7a0f7aedd645dc4b3/manuscript/main.md}{Pinned manuscript};
+\href{https://github.com/stefangordon/dbn-upper-bound/blob/64c47f2db67288beb62c24d7a0f7aedd645dc4b3/VERIFICATION.md}{verification scope}.
+The partial Lean formalisation retains explicit analytic hypotheses.
+Cited for context, not as a proof input.
+
+\bibitem{arb}
+F. Johansson,
+\emph{Arb: efficient arbitrary-precision midpoint-radius interval arithmetic},
+IEEE Transactions on Computers \textbf{66} (2017), 1281--1292.
+\href{https://doi.org/10.1109/TC.2017.2690633}{doi:10.1109/TC.2017.2690633};
+\href{https://arxiv.org/abs/1611.02831}{arXiv:1611.02831}.
+
+\end{thebibliography}
+\end{document}

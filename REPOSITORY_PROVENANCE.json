@@ -1,0 +1,55 @@
+{
+  "schema": "BCLD_GITHUB_COMPANION_PREPARATION_V1",
+  "prepared_utc": "2026-09-21T08:52:11.523490+00:00",
+  "intended_owner": "Dale-Dug",
+  "suggested_repository_name": "de-bruijn-newman-0149396",
+  "publication_doi": "10.5281/zenodo.22867547",
+  "record_identity_source": "Record number supplied by the author in this conversation; live Zenodo retrieval unsuccessful during preparation.",
+  "source_archive": {
+    "name": "BCLD_ZENODO_0149396_REVISED_UPLOAD_PACKAGE_20260921.zip",
+    "bytes": 47676506,
+    "sha256": "2ab1f13868794ca09c86e1c40a4932b095de3d6332b60e1bf8ed00aa64ab8f3d"
+  },
+  "unaltered_publication_files": {
+    "Correlated_Translated_Probes.pdf": {
+      "bytes": 346256,
+      "sha256": "ad3e552b7429e685514cfa4ccfadebe9daf382c8000d95afb584932f0e226787"
+    },
+    "Correlated_Translated_Probes.tex": {
+      "bytes": 36827,
+      "sha256": "c6f9e1b6751df3c864609ee179bbaf1395af7071e733b744c3c6e38752f4cfe3"
+    },
+    "Analytic_Foundations.pdf": {
+      "bytes": 434186,
+      "sha256": "fe06339d12cfefe00b9da826ff812e31bb1be3cdaa698b78d4d85ad8b0ae53a9"
+    },
+    "Verification_Guide.pdf": {
+      "bytes": 238462,
+      "sha256": "e0222e073a2fb34f5967d9fd116576a491290065759968de4a52dc7c726c6c75"
+    },
+    "Manuscript_Sources.zip": {
+      "bytes": 93151,
+      "sha256": "4f62e9019267d250dda95b7bc4e7ade53edc8246326c43641b1023aecd586a15"
+    },
+    "LICENSES_AND_RIGHTS.md": {
+      "bytes": 1880,
+      "sha256": "3852abcaa977ef98d3d99e18bda1fb17f8223b686426e34f9e39e2c32e435422"
+    }
+  },
+  "external_replay_archive": {
+    "name": "Proof_and_Replay.zip",
+    "bytes": 46295866,
+    "sha256": "d624f2424b032a85ad1de9a2e3e071e397d772c010187b43524057f9186840d1",
+    "url": "https://zenodo.org/records/22867547/files/Proof_and_Replay.zip?download=1"
+  },
+  "original_metadata_members": [
+    "README.md",
+    "CITATION.cff",
+    "Verify_Deposit.py",
+    "Release_Manifest.json",
+    "SHA256SUMS.txt"
+  ],
+  "github_writes_performed": false,
+  "mathematical_replay_performed_during_preparation": false,
+  "changes": "New repository README, citation DOI, review guide, restoration helper and integrity manifest; archival publication/source files unchanged."
+}
