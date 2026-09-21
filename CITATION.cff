@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 message: "Please cite the archived preprint using its version-specific Zenodo DOI."
-type: article
+type: software
 title: "Correlated translated probes and the bound Λ < 0.149396 for the de Bruijn–Newman constant"
 authors:
   - family-names: Raymond
@@ -16,6 +16,18 @@ keywords:
   - interval arithmetic
   - zero dynamics
   - logarithmic derivatives
+preferred-citation:
+  type: article
+  status: preprint
+  title: "Correlated translated probes and the bound Λ < 0.149396 for the de Bruijn–Newman constant"
+  authors:
+    - family-names: Raymond
+      given-names: Dale James
+      orcid: "https://orcid.org/0009-0001-1682-8529"
+  version: "1.0"
+  year: 2026
+  doi: "10.5281/zenodo.22867547"
+  url: "https://zenodo.org/records/22867547"
 references:
   - type: article
     title: "Phase-correlated certificates and the bound Λ < 0.163297 for the de Bruijn–Newman constant"
