@@ -14,6 +14,22 @@ This is the publication companion for **“Correlated translated probes and the 
 
 **Review status:** the work was developed with AI assistance and is offered for independent mathematical scrutiny. It has not undergone external peer review and is not formally verified end to end. This positive upper-bound claim is not a proof of the Riemann hypothesis or of Λ < 0.09.
 
+## Later result and corrections
+
+The later [10 October 2026 publication](https://zenodo.org/records/23272725) gives the sharper bound **Λ ≤ 0.116397726408291 < 0.116398**. Its original H(7/8) hypothesis is supplied by OpenAI’s proved zero-free theorem; see the [26 October 2026 status clarification](https://github.com/Dale-Dug/de-bruijn-newman-0116398#current-mathematical-status--26-october-2026) for the theorem and pinned formal-source links.
+
+The Gaussian-remainder and wall estimates in this **21 September 2026** release should be read with the corrections in [Appendix B of the 10 October 2026 paper](https://github.com/Dale-Dug/de-bruijn-newman-0116398/blob/main/deposit/Conditional_0116398.tex#L867). The archived publication and source files here remain unchanged.
+
+## Research overview
+
+Dale James Raymond · [ORCID 0009-0001-1682-8529](https://orcid.org/0009-0001-1682-8529)
+
+- **8 September 2026:** [Phase-correlated certificates, Λ < 0.163297](https://zenodo.org/records/22626161).
+- **21 September 2026:** [Correlated translated probes, Λ < 0.149396](https://zenodo.org/records/22867547).
+- **10 October 2026:** [Retuned translated probes, Λ < 0.116398](https://zenodo.org/records/23272725), published with an original conditional title; see the [current mathematical status](https://github.com/Dale-Dug/de-bruijn-newman-0116398#current-mathematical-status--26-october-2026).
+
+GitHub companions: [0.149396](https://github.com/Dale-Dug/de-bruijn-newman-0149396) · [0.116398](https://github.com/Dale-Dug/de-bruijn-newman-0116398).
+
 ## Read the paper
 
 - [Main manuscript](Correlated_Translated_Probes.pdf)
