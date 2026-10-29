@@ -1,8 +1,8 @@
 # Correlated translated probes and the bound Λ < 0.149396
 
-**Dale James Raymond** · Research preprint · Version 1.0  
-**Paper and full evidence:** [Zenodo record 22867547](https://zenodo.org/records/22867547)  
-**DOI:** [10.5281/zenodo.22867547](https://doi.org/10.5281/zenodo.22867547)
+**Dale James Raymond · Research preprint · Version 1.0 · 21 September 2026**  
+**Published paper and complete evidence:** [Zenodo record 22867547](https://zenodo.org/records/22867547)  
+**Version-specific DOI:** [10.5281/zenodo.22867547](https://doi.org/10.5281/zenodo.22867547)
 
 This is the publication companion for **“Correlated translated probes and the bound Λ < 0.149396 for the de Bruijn–Newman constant.”** The preprint presents a computer-assisted argument for
 
@@ -20,6 +20,8 @@ The later [10 October 2026 publication](https://zenodo.org/records/23272725) giv
 
 The Gaussian-remainder and wall estimates in this **21 September 2026** release should be read with the corrections in [Appendix B of the 10 October 2026 paper](https://github.com/Dale-Dug/de-bruijn-newman-0116398/blob/main/deposit/Conditional_0116398.tex#L867). The archived publication and source files here remain unchanged.
 
+**Latest publication:** [A computer-assisted bound Λ ≤ 0.107964910079 (29 October 2026)](https://zenodo.org/records/23752103), with its [verification companion](https://github.com/Dale-Dug/de-bruijn-newman-0107965).
+
 ## Research overview
 
 Dale James Raymond · [ORCID 0009-0001-1682-8529](https://orcid.org/0009-0001-1682-8529)
@@ -29,9 +31,9 @@ Dale James Raymond · [ORCID 0009-0001-1682-8529](https://orcid.org/0009-0001-16
 - **10 October 2026:** [Retuned translated probes, Λ < 0.116398](https://zenodo.org/records/23272725), published with an original conditional title; see the [current mathematical status](https://github.com/Dale-Dug/de-bruijn-newman-0116398#current-mathematical-status--26-october-2026).
 - **29 October 2026:** [A computer-assisted bound, Λ ≤ 0.107964910079](https://zenodo.org/records/23752103).
 
-GitHub companions: [0.149396](https://github.com/Dale-Dug/de-bruijn-newman-0149396) · [0.116398](https://github.com/Dale-Dug/de-bruijn-newman-0116398) · [0.107965](https://github.com/Dale-Dug/de-bruijn-newman-0107965).
+GitHub companions: [0.149396](https://github.com/Dale-Dug/de-bruijn-newman-0149396) · [0.116398](https://github.com/Dale-Dug/de-bruijn-newman-0116398) · [0.107964910079](https://github.com/Dale-Dug/de-bruijn-newman-0107965).
 
-## Read the paper
+## Read the publication
 
 - [Main manuscript](Correlated_Translated_Probes.pdf)
 - [Analytic foundations](Analytic_Foundations.pdf)
@@ -70,7 +72,7 @@ python3.13 Verify_Deposit.py --replay --output ../replay_0149396
 
 The replay destination must be new/empty and outside the deposit. Do not disable Python assertions. Read the verification guide before running the full calculation.
 
-### Verification boundary
+## Verification boundary
 
 The supplied evidence reports source regeneration, interval calculations and exact rational final comparisons. Both transcendental lanes use Arb/FLINT; different precisions are not independent arithmetic libraries. Written analytic arguments, the application of published results, and the proof-to-code correspondence require review in addition to running the code. A successful hash check establishes file identity, not mathematical correctness. The published finite-RH computation is cited, not repeated.
 
